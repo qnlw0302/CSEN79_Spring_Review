@@ -63,4 +63,7 @@ double average(const double data[], size_t n);
 - Value parameter that is pointer: `void function(const *p);`
 - Const value parameter that is pointer: `void function(const double *p);`
 - Reference parameter that is pointer: `void function(double *&p);`
-  
+
+# The STL String Class and a Project
+**\0** is a special character for null character which is used in string
+- The distinction between a string variable and an array of characters is the fact that the **string variable must use the null character** to mark the end of the string.
