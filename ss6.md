@@ -86,4 +86,105 @@ It used to be `void list_insert(node* previous_ptr, const node::value_type& entr
   2. Has the ability to iteratr through the elements of that range using a set of operators.
 ### Input Iterator
 - Produced by: `istream_iterator`
-- ss6 P52
+```cpp
+#include <iostream>
+#include <iterator>
+int main(){
+    double value1, value2;
+    cout << "Insert two values: ";
+    istream_iterator<double> eos;//end of stream
+    istream_iterator<double> iit(cin);
+    if(iit != eos) value1 = *iit;
+    ++iit;
+    if(iit != eos) value2 = *iit;
+    cout << value1 << "+" << value2 << "=" << (value1 + value2) << '\n';
+    return 0;
+
+}
+```
+
+### Output Iterator
+**The output operator itself can't be used to retrieve elements**
+- produced by: `ostream_iterator`, `inserter()`, `front_inserter()`, `back_inserter()`
+```cpp
+#include <iostream>
+#include <iterator>
+#include <vector>
+#include<algorithm>
+int main(){
+    vector<int> myvector;
+    for(int i = 0; i < 10; i++) myvector.pushback(i);
+    ostream_iterator<int> out_it(cout);
+    copy(myvector.begin(), myvector.end(), out_it);
+    return 0;
+
+}
+```
+
+### Forward Iterator
+- have all the functionality of input iterators
+- if they are not constant iterator, then they also have the functionality of output iterators
+- are limited to one direction in which to iterate through a range
+- All std containers support at least forward iterator types
+```cpp
+#include <iostream>
+#include <forward_list>
+
+int main(){
+    forward_list<int> mylist(4);
+    for(forward_list<int>::iterator it = mylist.begin(); it != mylist.end(); ++i){
+        *it = rand();
+    }
+}
+```
+
+### Bidirectional Iterator
+- has all the abilities of a forward iterator, puls it can move backward with the -- operator
+- produced by list, set , map
+
+### Random Access Iterator
+- has all the abilities of bidirectional iterators
+- the term random access refers to the ability to quickly access any random selected location in a container
+- produces by ordinary pointers, vector, deque
+  
+
+## Iterator for linked list
+- hAs two constructors:
+  1. attaches the iterator to a specified node in a linked list
+  2. creates a special iterator that marks the position that is beyond the end of the a linked list
+- tags provided bu STL: input_iterator_tag, output_iterator_tag, forward_iterator_tag, bidirectional_iterator_tag, random_access_iterator_tag,for example`public std::iterator<std::forward_iterator_tag, Item>`, it allows iterator to pick up some features of the STL
+
+```cpp
+template <class Item>
+class node_iterator : public std::iterator<std::forward_iterator_tag, Item>{
+public:
+    node_iterator(node<Item>* initial = NULL){
+        current = initial;
+    }
+    Item& operator*(){
+        return current -> data();
+    }
+    node_iterator& operator ++(){
+        current = current -> link();
+        return *this;
+    }
+    node_iterator operator ++(int){
+        node_iterator original(current);
+        current = current -> link();
+        return original;
+    }
+    bool operator ==(const node_iterator other) const{
+        return current == other.current;
+    }
+    bool operator !=(const node_iterator other) const {
+        return current != other.current;
+    }
+private:
+    node<Item>* current;
+}
+```
+
+## STL vector VS List
+- vectors: use dynamic array
+- list: use doubly linked list
+- deque: TBD

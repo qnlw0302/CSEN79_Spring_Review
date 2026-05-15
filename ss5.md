@@ -142,7 +142,7 @@ void bag::operator +=(const bag& addend){
 ## Linked List
 - better at insertions/deletions at a cursor
 - doubly linked list are better for a two-way cursor
-In order to create a doubly linked list:
+### In order to create a doubly linked list:
 ```cpp
 //doubly linked list
 dnode(const value_type& init_data = value_type(), denode* init_fore = NULL, denode* init_back = NULL){
