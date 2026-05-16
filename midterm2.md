@@ -19,6 +19,15 @@
 random access:O(n)
 Iterator:bidirectional
 Iterator invalidation:valid
+- deuque
+  dynamic allocation
+  insert/delete
+    at front:O(1)
+    at end:O(1)
+    at middle:O(n)
+  random access:O(1)
+  Iterator:random iterator
+  Iteator invalidation: insert/delete in the middle may invalidate iterator
 
 - STL Stack and queue
   1. non-container clases, they are container adaptor
@@ -32,4 +41,3 @@ exam format
 10 MCQ
 short answer questions
 program question
- 
